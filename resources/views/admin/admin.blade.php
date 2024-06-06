@@ -3,5 +3,5 @@
     admin
 @endsection
 @section('content')
-    ini adalah halaman admin
+    <h1>Ini Halaman Dashboard</h1>
 @endsection
