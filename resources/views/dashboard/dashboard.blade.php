@@ -32,7 +32,7 @@
     <div class="payment-list">
         <button class="btn">
             <i class="fa-solid fa-file-invoice" style="color: #FFD43B;"></i>
-            Bill
+            Assurance
         </button>
         <button class="btn" onclick="window.location.href='/assurance'">
             <i class="fa-solid fa-notes-medical" style="color: #ed1d1d;"></i>
