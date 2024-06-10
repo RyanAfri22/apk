@@ -31,7 +31,7 @@
             <button type="submit" class="btn mt-3">Login</button>
         </form>
         <div class="text-center fs-6">
-            <a href="#">Forget password?</a> or <a href="/register">Sign up</a>
+            <a href="#">Forget password?</a> or <a href="/tambah">Sign up</a>
         </div>
     </div>
 </body>

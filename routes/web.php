@@ -8,6 +8,7 @@ use App\Http\Controllers\homeController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\PaymentBillController;
 use App\Http\Controllers\PengingatController;
+use App\Http\Controllers\profileController;
 use App\Http\Controllers\TransferController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +26,8 @@ use Illuminate\Support\Facades\Auth;
 */
 //Login
 Route::redirect('/', '/login');
+Route::get('/tambah', [loginController::class, 'register']);
+Route::post('/create', [loginController::class, 'create']);
 Auth::routes();
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
@@ -52,7 +55,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::post('/assurance/session', [AssuranceController::class, 'store']);
     Route::get('/assurance/paymentbill', [AssuranceController::class, 'payment']);
     Route::post('/assurance/paymentbill/transactionsuccess', [AssuranceController::class, 'success']);
-
+    Route::get('/profile', [profileController::class, 'index']);
 });
 
 // Route::get('/', [loginController::class, 'index']);
