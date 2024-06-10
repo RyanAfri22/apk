@@ -8,6 +8,15 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="nav-link btn btn-link">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </form>
+        </li>
+
         <!-- Navbar Search -->
         <li class="nav-item">
             <a class="nav-link" data-widget="navbar-search" href="#" role="button">
@@ -134,8 +143,8 @@
 <aside class="main-sidebar  elevation-4" style="background-color: #FC7909;">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-            style="opacity: .8">
+        <img src="{{ asset('/') }}dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
+            class="brand-image img-circle elevation-3" style="opacity: .8">
         <span style="color:white" class=" font-weight-light">assurance payment</span>
     </a>
 
@@ -144,7 +153,8 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <img src="{{ asset('/') }}dist/img/user2-160x160.jpg" class="img-circle elevation-2"
+                    alt="User Image">
             </div>
             <div class="info">
                 <a href="#" class="d-block" style="color:white">Admin</a>
@@ -152,7 +162,7 @@
         </div>
 
         <!-- SidebarSearch Form -->
-        <div class="form-inline">
+        {{-- <div class="form-inline">
             <div class="input-group" data-widget="sidebar-search">
                 <input class="form-control form-control-sidebar" type="search" placeholder="Search"
                     aria-label="Search">
@@ -162,7 +172,7 @@
                     </button>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -171,41 +181,56 @@
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="/admin" class="nav-link">
-                        <i class="nav-icon far fa-calendar-alt" style="color:white"></i>
-                        <p style="color:white">
+                    <a href="/admin" class="nav-link text-white">
+                        <i class="nav-icon far fa-calendar-alt"></i>
+                        <p>
                             Dashboard
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/card" class="nav-link">
-                        <i class="nav-icon far fa-calendar-alt" style="color:white"></i>
-                        <p style="color:white">
-                            Card
+                    <a href="/pengingat" class="nav-link text-white">
+                        <i class="nav-icon far fa-calendar-alt"></i>
+                        <p>
+                            Kirim Pengingat
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/asuransi" class="nav-link">
-                        <i class="nav-icon far fa-calendar-alt" style="color:white"></i>
-                        <p style="color:white">
-                            Tagihan Asuransi
+                    <a href="#" class="nav-link text-white">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            Asuransi
+                            <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
+                    <ul class="nav nav-treeview" style="display: none;">
+                        <li class="nav-item">
+                            <a href="/asuransi" class="nav-link text-white">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Tambah Asuransi</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="tagihan" class="nav-link text-white">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Tagihan Asuransi</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="/transaksi" class="nav-link">
-                        <i class="nav-icon far fa-calendar-alt" style="color:white"></i>
-                        <p style="color:white">
+                    <a href="/transaksi" class="nav-link text-white">
+                        <i class="nav-icon far fa-calendar-alt"></i>
+                        <p>
                             Transaksi User
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/user" class="nav-link">
-                        <i class="nav-icon far fa-calendar-alt" style="color:white"></i>
-                        <p style="color:white">
+                    <a href="/user" class="nav-link text-white">
+                        <i class="nav-icon far fa-calendar-alt"></i>
+                        <p>
                             User
                         </p>
                     </a>

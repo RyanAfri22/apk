@@ -4,15 +4,23 @@
         <div class="header-left">
             <img src="img/logo.png" alt="" class="small-logo"> Assurance.Pay
         </div>
-        <div class="header-right">
+
+        <div class="header-right d-flex align-items-center">
             <i class="fas fa-bell"></i>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn text-white">
+                    <i class="fas fa-sign-out"></i> Logout
+                </button>
+            </form>
         </div>
     </header>
 
-    <div class="balance-card">
-        <div class="balance-text">Hello, Andrea</div>
-        <div class="balance-text">Balance Rp385.000</div>
-        <div class="coin-reward">Coin Reward 5.400</div>
+    <div class="balance-card mt-5">
+        <div class="balance-text">Hello, {{ Auth::user()->username }}</div>
+        <div class="balance-text">Balance Rp {{ number_format(Auth::user()->accounts->first()->balance, 2, ',', '.') }}
+        </div>
+        {{-- <div class="coin-reward">Coin Reward 5.400</div> --}}
         <div class="top-buttons">
             <button class="btn btn-warning">
                 <i class="fa-solid fa-plus" style="color: #FFD43B;"></i>

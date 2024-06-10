@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class paymentbillController extends Controller
+class PaymentBillController extends Controller
 {
     public function index()
     {
-        return view('dashboard.paymentbill');
+        
     }
 }

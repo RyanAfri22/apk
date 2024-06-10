@@ -1,3 +1,6 @@
+@php
+    use Carbon\Carbon;
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 
@@ -82,46 +85,16 @@
         <div></div>
     </header>
     <main>
-        <div class="transaction">
-            <i class="fas fa-arrow-up icon"></i>
-            <div class="transaction-details">
-                <p class="name">Ralph Edwards</p>
-                <p class="date">Saturday, Feb 09 2024</p>
+        @foreach ($transactions as $item)
+            <div class="transaction">
+                <i class="fas fa-arrow-up icon"></i>
+                <div class="transaction-details">
+                    <p class="name">{{ $item->receiver_name }}</p>
+                    <p class="date">{{ Carbon::parse($item->created_at)->format('l, M d Y') }}</p>
+                </div>
+                <div class="amount">Rp {{ number_format($item->amount, 2, ',', '.') }}</div>
             </div>
-            <div class="amount">Rp50.000</div>
-        </div>
-        <div class="transaction">
-            <i class="fas fa-arrow-up icon"></i>
-            <div class="transaction-details">
-                <p class="name">Jerome Bell</p>
-                <p class="date">Friday, Feb 08 2024</p>
-            </div>
-            <div class="amount">Rp350.000</div>
-        </div>
-        <div class="transaction">
-            <i class="fas fa-arrow-up icon"></i>
-            <div class="transaction-details">
-                <p class="name">Dianne Russell</p>
-                <p class="date">Wednesday, Feb 06 2024</p>
-            </div>
-            <div class="amount">Rp164.000</div>
-        </div>
-        <div class="transaction">
-            <i class="fas fa-arrow-up icon"></i>
-            <div class="transaction-details">
-                <p class="name">Marvin McKinney</p>
-                <p class="date">Wednesday, Feb 06 2024</p>
-            </div>
-            <div class="amount">Rp264.000</div>
-        </div>
-        <div class="transaction">
-            <i class="fas fa-arrow-up icon"></i>
-            <div class="transaction-details">
-                <p class="name">Courtney Henry</p>
-                <p class="date">Monday, Feb 04 2024</p>
-            </div>
-            <div class="amount">Rp643.000</div>
-        </div>
+        @endforeach
     </main>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">

@@ -18,7 +18,7 @@
         <div class="text-center mt-4 name">
             Assurance Payment
         </div>
-        <form class="p-3 mt-3" method="POST" action="/login-proses">
+        <form class="p-3 mt-3" method="POST" action="{{ route('login') }}">
             @csrf
             <div class="form-field d-flex align-items-center">
                 <span class="far fa-user"></span>

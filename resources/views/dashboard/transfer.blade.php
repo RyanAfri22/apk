@@ -18,24 +18,26 @@
         <div></div>
     </header>
     <div class="container">
-        <div class="recipient-card">
-            <h5>Send to :</h5>
-            <div class="d-flex align-items-center">
-                <i class="fas fa-user-circle fa-3x" style="color: #00aaff;"></i>
-                <div class="ms-3">
-                    <h5>Annie</h5>
-                    <p>8930462013</p>
+        @if (session('transferData') != null)
+            <div class="recipient-card">
+                <h5>Send to :</h5>
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-user-circle fa-3x" style="color: #00aaff;"></i>
+                    <div class="ms-3 mt-3">
+                        <h5>{{ session('transferData')['recipientName'] }}</h5>
+                        <p>{{ session('transferData')['accountNumber'] }}</p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="amount-card">
-            <h5>Enter your amount</h5>
-            <input type="text" id="amount" value="Rp250.000" readonly>
-            <textarea id="note" placeholder="Leave a note" rows="3"></textarea>
-        </div>
+            <div class="amount-card">
+                <h5>Enter your amount</h5>
+                <input class="mb-3" type="text" id="amount"
+                    value="Rp {{ number_format(session('transferData')['amount'], 2, ',', '.') }}" readonly>
+                <textarea id="note" placeholder="No note" rows="3" readonly>{{ session('transferData')['note'] }}</textarea>
+            </div>
 
-        <div class="method-card position-relative">
+            {{-- <div class="method-card position-relative">
             <h5>Select top up method</h5>
             <div class="d-flex align-items-center">
                 <i class="fab fa-cc-mastercard fa-3x" style="color: #ff5f00;"></i>
@@ -45,17 +47,21 @@
                 </div>
             </div>
             <i class="fas fa-pen edit-icon"></i>
-        </div>
+        </div> --}}
 
-        <button class="transfer-button" onclick="window.location.href='/transfer/paymentbill'">
-            Transfer Rp250.000
-            <i class="fa-solid fa-paper-plane" style="color: #ffffff; margin-left:10px"></i>
-        </button>
+            <button class="transfer-button" onclick="window.location.href='/transfer/paymentbill'">
+                Transfer Rp {{ number_format(session('transferData')['amount'], 2, ',', '.') }}
+                <i class="fas fa-solid fa-paper-plane" style="color: #ffffff; margin-left:10px"></i>
+            </button>
+        @else
+            <div class="text-center">No data, please add data transfer first</div>
+            <button class="transfer-button mt-3" onclick="window.location.href='/addtransfer'">Add Data</button>
+        @endif
     </div>
 
     <script>
         function goBack() {
-            window.location.href = '/dashboard';
+            window.location.href = '/addtransfer';
         }
     </script>
 </body>
