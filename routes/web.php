@@ -45,10 +45,14 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::post('/transfer', [TransferController::class, 'index']);
     Route::get('/transfer/paymentbill', [TransferController::class, 'payment']);
     Route::post('/transfer/paymentbill/transactionsuccess', [TransferController::class, 'success']);
+    Route::post('/topup', [TransferController::class, 'topup']);
+    Route::post('/withdraw', [TransferController::class, 'withdraw']);
+
     Route::get('/assurance', [AssuranceController::class, 'index']);
     Route::post('/assurance/session', [AssuranceController::class, 'store']);
     Route::get('/assurance/paymentbill', [AssuranceController::class, 'payment']);
     Route::post('/assurance/paymentbill/transactionsuccess', [AssuranceController::class, 'success']);
+
 });
 
 // Route::get('/', [loginController::class, 'index']);

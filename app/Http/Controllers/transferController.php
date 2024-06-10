@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NotificationEmailTopUp;
 use App\Mail\NotificationEmailTransfer;
+use App\Mail\NotificationEmailWithdraw;
 use App\Models\Account;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -83,5 +85,47 @@ class TransferController extends Controller
     public function payment()
     {
         return view('dashboard.paymentbill');
+    }
+
+    public function topup(Request $request)
+    {
+        if ($request->topup == 0 || $request->topup == null) {
+            return redirect('/dashboard')->with('error', 'Top Up must be greater than 0');
+        }
+        $account = Account::where('account_id', Auth::user()->accounts->first()->account_id)->first();
+        $account->balance += $request->topup;
+        $account->save();
+
+        $dataTopup = [
+            'amount' => $request->topup,
+        ];
+
+        Mail::to(Auth::user()->email)->send(new NotificationEmailTopUp($dataTopup));
+        return redirect('/dashboard')->with('success', 'Top Up Success, check your email for the receipt');
+    }
+
+    public function withdraw(Request $request)
+    {
+        if ($request->withdraw == 0 || $request->withdraw == null) {
+            return redirect('/dashboard')->with('error', 'Withdraw must be greater than 0');
+        }
+
+        if ($request->withdraw > Auth::user()->accounts->first()->balance) {
+            return redirect('/dashboard')->with('error', 'Insufficient balance');
+        } else {
+            if ((Auth::user()->accounts->first()->balance - $request->withdraw) < 50000) {
+                return redirect('/dashboard')->with('error', 'Minimum balance is Rp 50.000');
+            }
+            $account = Account::where('account_id', Auth::user()->accounts->first()->account_id)->first();
+            $account->balance -= $request->withdraw;
+            $account->save();
+
+            $dataWithdraw = [
+                'amount' => $request->withdraw,
+            ];
+            Mail::to(Auth::user()->email)->send(new NotificationEmailWithdraw($dataWithdraw));
+            return redirect('/dashboard')->with('success', 'Withdraw Success, check your email for the receipt');
+        }
+
     }
 }
