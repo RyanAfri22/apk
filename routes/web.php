@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Auth;
 */
 //Login
 Route::redirect('/', '/login');
-Auth::routes();
+Auth::routes(['reset' => false, 'verify' => false]);
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     //Admin
