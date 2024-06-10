@@ -79,7 +79,6 @@ class RegisterController extends Controller
                 'role' => 'user',
             ]);
 
-
             Account::create([
                 'user_id' => $user->user_id,
                 'account_number' => '1234567899',

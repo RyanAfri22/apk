@@ -19,19 +19,11 @@
         <div class="text-center mt-4 name">
             Assurance Payment
         </div>
-<<<<<<< HEAD
-        <form class="p-3 mt-3" method="POST" action="/create">
-            @csrf
-            <div class="form-field d-flex align-items-center">
-                <span class="far fa-user"></span>
-                <input type="text" name="username" id="username" placeholder="Username">
-=======
         <form class="p-3 mt-3" method="POST" action="{{ route('register') }}">
             @csrf
             <div class="form-field d-flex align-items-center">
                 <span class="far fa-user"></span>
                 <input type="text" name="username" id="userName" placeholder="Username">
->>>>>>> 23319ee275da451a1c60d61132cc5eade5a6dc6d
             </div>
             <div class="form-field d-flex align-items-center">
                 <span class="far fa-user"></span>
