@@ -43,8 +43,6 @@ class TransferController extends Controller
                 return redirect('/addtransfer')->with('error', 'Minimum balance is Rp 50.000');
             }
         }
-
-
     }
     public function success(Request $request)
     {
