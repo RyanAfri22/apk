@@ -18,11 +18,16 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 
-     
+
+    protected $primaryKey = 'user_id';
     protected $fillable = [
-        'name',
-        'email',
+        'username',
         'password',
+        'email',
+        'phone_number',
+        'role',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -32,7 +37,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
     /**
@@ -41,7 +45,16 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function accounts()
+    {
+        return $this->hasMany(Account::class, 'user_id');
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
 }

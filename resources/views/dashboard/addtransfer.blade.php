@@ -17,52 +17,62 @@
         <h2>Transfer</h2>
         <div></div>
     </header>
-    <div class="container">
-        <div class="content">
-            <div class="input-group">
-                <label for="recipientName">Recipient Name</label>
-                <input type="text" id="recipientName" name="recipientName" placeholder="Enter recipient name" />
+    <form action="/transfer" method="POST">
+        @csrf
+        <div class="container">
+            <div class="content">
+                <div class="input-group">
+                    <label for="recipientName">Recipient Name</label>
+                    <input type="text" id="recipientName" name="recipientName" placeholder="Enter recipient name"
+                        required />
+                </div>
+                <div class="input-group">
+                    <label for="accountNumber">Account Number</label>
+                    <input type="text" id="accountNumber" name="accountNumber" placeholder="Enter account number"
+                        required />
+                </div>
+                <div class="input-group">
+                    <label for="amount">Amount (Rp)</label>
+                    <input type="number" id="amount" name="amount" placeholder="Enter amount" required />
+                </div>
+                <div class="input-group">
+                    <label for="note">Leave a note</label>
+                    <input type="text" id="note" name="note" placeholder="Enter a note" />
+                </div>
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+                <button class="button" type="submit">Transfer</button>
             </div>
-            <div class="input-group">
-                <label for="accountNumber">Account Number</label>
-                <input type="text" id="accountNumber" name="accountNumber" placeholder="Enter account number" />
-            </div>
-            <div class="input-group">
-                <label for="amount">Amount (Rp)</label>
-                <input type="number" id="amount" name="amount" placeholder="Enter amount" />
-            </div>
-            <div class="input-group">
-                <label for="note">Leave a note</label>
-                <input type="text" id="note" name="note" placeholder="Enter a note" />
-            </div>
-            <button class="button" onclick="transfer()">Transfer</button>
         </div>
-    </div>
+    </form>
 
     <script>
         function goBack() {
             window.location.href = '/dashboard';
         }
 
-        function transfer() {
-            const recipientName = document.getElementById('recipientName').value;
-            const accountNumber = document.getElementById('accountNumber').value;
-            const amount = document.getElementById('amount').value;
-            const note = document.getElementById('note').value;
+        // function transfer() {
+        //     const recipientName = document.getElementById('recipientName').value;
+        //     const accountNumber = document.getElementById('accountNumber').value;
+        //     const amount = document.getElementById('amount').value;
+        //     const note = document.getElementById('note').value;
 
-            if (recipientName && accountNumber && amount) {
-                // Simpan data ke local storage atau session storage
-                localStorage.setItem('recipientName', recipientName);
-                localStorage.setItem('accountNumber', accountNumber);
-                localStorage.setItem('amount', amount);
-                localStorage.setItem('note', note);
+        //     if (recipientName && accountNumber && amount) {
+        //         // Simpan data ke local storage atau session storage
+        //         localStorage.setItem('recipientName', recipientName);
+        //         localStorage.setItem('accountNumber', accountNumber);
+        //         localStorage.setItem('amount', amount);
+        //         localStorage.setItem('note', note);
 
-                // Redirect ke halaman /transfer
-                window.location.href = '/transfer';
-            } else {
-                alert('Please fill in all fields');
-            }
-        }
+        //         // Redirect ke halaman /transfer
+        //         window.location.href = '/transfer';
+        //     } else {
+        //         alert('Please fill in all fields');
+        //     }
+        // }
     </script>
 </body>
 <script src="https://kit.fontawesome.com/03717f260b.js" crossorigin="anonymous"></script>

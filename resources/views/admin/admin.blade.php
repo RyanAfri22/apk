@@ -3,5 +3,7 @@
     admin
 @endsection
 @section('content')
-    <h1>Ini Halaman Dashboard</h1>
+    <div class="container">
+        <h1>Ini Halaman Dashboard</h1>
+    </div>
 @endsection

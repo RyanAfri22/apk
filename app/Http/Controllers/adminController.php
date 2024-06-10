@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Insurance;
 use Illuminate\Http\Request;
 
-class adminController extends Controller
+class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('role:admin');
+    }
+
     public function index()
     {
         return view('admin.admin');
-    }
-    public function assurance()
-    {
-        return view('admin.assurance');
     }
     public function card()
     {

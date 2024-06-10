@@ -2,20 +2,86 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NotificationEmailTransfer;
+use App\Models\Account;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
-class transferController extends Controller
+class TransferController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('dashboard.transfer');
+        $request->validate([
+            'recipientName' => 'required|string',
+            'accountNumber' => 'required|string',
+            'amount' => 'required|numeric',
+            'note' => 'nullable|string',
+        ]);
+
+        $saldo = Auth::user()->accounts->first()->balance;
+        $jmlTransfer = $request->amount;
+
+        if ($saldo < $jmlTransfer) {
+            return redirect('/addtransfer')->with('error', 'Insufficient balance');
+        } else {
+            $cekSaldo = $saldo - $jmlTransfer;
+            if ($cekSaldo >= 50000) {
+                $transferData = [
+                    'recipientName' => $request->recipientName,
+                    'accountNumber' => $request->accountNumber,
+                    'amount' => $request->amount,
+                    'note' => $request->note,
+                ];
+
+                $request->session()->put('transferData', $transferData);
+
+                return view('dashboard.transfer');
+            } else {
+                return redirect('/addtransfer')->with('error', 'Minimum balance is Rp 50.000');
+            }
+        }
+
+
     }
-    public function success()
+    public function success(Request $request)
     {
-        return view('dashboard.transactionsucces');
+        $transferData = $request->session()->get('transferData');
+        $tax = 5000;
+
+        $transactionId = DB::table('transactions')->insertGetId([
+            'sender_account_id' => Auth::user()->accounts->first()->account_id,
+            'receiver_name' => $transferData['recipientName'],
+            'receiver_account_number' => $transferData['accountNumber'],
+            'amount' => $transferData['amount'] + $tax,
+            'note' => $transferData['note'],
+            // 'status' => 'Pending',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $account = Account::where('account_id', Auth::user()->accounts->first()->account_id)->first();
+        $account->balance = $account->balance - ($transferData['amount'] + $tax);
+        $account->save();
+
+        $dataTransactions = Transaction::where('transaction_id', $transactionId)->get();
+
+        $request->session()->forget('transferData');
+
+        Mail::to(Auth::user()->email)->send(new NotificationEmailTransfer($dataTransactions));
+
+        return view('dashboard.transactionsucces', compact('dataTransactions'));
     }
-    public function add()
+    public function add(Request $request)
     {
+        $request->session()->forget('transferData');
         return view('dashboard.addtransfer');
+    }
+
+    public function payment()
+    {
+        return view('dashboard.paymentbill');
     }
 }

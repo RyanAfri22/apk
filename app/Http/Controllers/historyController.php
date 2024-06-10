@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class historyController extends Controller
+class HistoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('dashboard.history');
+        $request->session()->forget('transferData');
+
+
+        $transactions = Transaction::where('sender_account_id', Auth::user()->accounts->first()->account_id)->get();
+        return view('dashboard.history', compact('transactions'));
     }
 }
