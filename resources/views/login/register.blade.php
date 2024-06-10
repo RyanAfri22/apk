@@ -11,6 +11,7 @@
 </head>
 
 <body>
+
     <div class="wrapper">
         <div class="logo">
             <img src="img/logo.png">
@@ -18,11 +19,19 @@
         <div class="text-center mt-4 name">
             Assurance Payment
         </div>
+<<<<<<< HEAD
         <form class="p-3 mt-3" method="POST" action="/create">
             @csrf
             <div class="form-field d-flex align-items-center">
                 <span class="far fa-user"></span>
                 <input type="text" name="username" id="username" placeholder="Username">
+=======
+        <form class="p-3 mt-3" method="POST" action="{{ route('register') }}">
+            @csrf
+            <div class="form-field d-flex align-items-center">
+                <span class="far fa-user"></span>
+                <input type="text" name="username" id="userName" placeholder="Username">
+>>>>>>> 23319ee275da451a1c60d61132cc5eade5a6dc6d
             </div>
             <div class="form-field d-flex align-items-center">
                 <span class="far fa-user"></span>
@@ -34,12 +43,28 @@
             </div>
             <div class="form-field d-flex align-items-center">
                 <span class="fas fa-key"></span>
-                <input type="password" name="password" id="pwd" placeholder="Retype Password">
+                <input type="password" name="password_confirmation" id="pwd" placeholder="Retype Password">
             </div>
-            <button class="btn mt-3">Register</button>
+            @error('username')
+                <span class="alert alert-danger">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            @error('email')
+                <span class="alert alert-danger">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            @error('password')
+                <span class="alert alert-danger">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            <button type="submit" class="btn mt-3">Register</button>
         </form>
+
         <div class="text-center fs-6">
-            <a href="#">Sudah punya akun?</a> or <a href="/login">Log in</a>
+            Sudah punya akun? <a href="/login">Log in</a>
         </div>
     </div>
 </body>

@@ -26,9 +26,13 @@ use Illuminate\Support\Facades\Auth;
 */
 //Login
 Route::redirect('/', '/login');
+<<<<<<< HEAD
 Route::get('/tambah', [loginController::class, 'register']);
 Route::post('/create', [loginController::class, 'create']);
 Auth::routes();
+=======
+Auth::routes(['reset' => false, 'verify' => false]);
+>>>>>>> 23319ee275da451a1c60d61132cc5eade5a6dc6d
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     //Admin
